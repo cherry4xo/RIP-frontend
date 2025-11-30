@@ -8,7 +8,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 
 function App() {
-  const basename = import.meta.env.MODE === 'production' ? '/RIP-frontend/' : '/';
+  // Проверяем, запущено ли приложение в Tauri
+  // @ts-ignore
+  const isTauri = typeof window !== 'undefined' && window.__TAURI__;
+
+  // Для Tauri всегда используем '/', для веб - '/RIP-frontend/' в production
+  const basename = import.meta.env.MODE === 'production' && !isTauri ? '/RIP-frontend/' : '/';
+
+  console.log('App initialized:', {
+    mode: import.meta.env.MODE,
+    isTauri,
+    basename,
+    hasTauriGlobal: typeof window !== 'undefined' && 'window.__TAURI__' in window
+  });
 
   return (
     <BrowserRouter basename={basename}>

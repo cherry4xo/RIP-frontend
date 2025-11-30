@@ -2,14 +2,15 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Positive Tech",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "com.positivetech.vulnerability-assessment",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5173",
     "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build"
+    "beforeBuildCommand": "TAURI_BUILD=true npm run build"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "Positive Tech",

@@ -11,7 +11,7 @@
     "deploy": "gh-pages -d dist",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:build": "TAURI_BUILD=true tauri build"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.0",
