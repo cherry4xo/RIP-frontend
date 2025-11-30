@@ -43,9 +43,10 @@ React SPA приложение для работы с API оценки уязв�
 - **React Router v7** - клиентская маршрутизация
 - **React Bootstrap** - UI компоненты
 - **Redux Toolkit** - управление состоянием
-- **Fetch API** - HTTP запросы с fallback на mock данные
+- **Axios** - AJAX запросы с fallback на mock данные
 - **PWA** - vite-plugin-pwa (Workbox)
 - **Tauri 2** - desktop приложение
+- **gh-pages** - развертывание на GitHub Pages
 
 ## Установка и запуск
 
@@ -118,6 +119,39 @@ VITE_API_BASE_URL=http://192.168.1.100:8080/api
 2. "Добавить на главный экран"
 3. PWA установится как нативное приложение
 
+## Развертывание на GitHub Pages
+
+### Метод 1: gh-pages (рекомендуется для этой лабы)
+
+1. Убедитесь, что все изменения закоммичены
+
+2. Соберите и разверните приложение:
+```bash
+npm run build
+npm run deploy
+```
+
+3. Приложение будет доступно по адресу:
+   `https://cherry4xo.github.io/RIP-frontend/`
+
+4. Ссылка появится во вкладке **Deployments** вашего репозитория
+
+**Важно**: При развертывании через GitHub Pages AJAX запросы будут идти по http, в то время как приложение доступно по https. Это будет работать только при использовании localhost в запросах или при настройке HTTPS на бэкенде.
+
+### Метод 2: GitHub Actions (автоматический)
+
+Альтернативно, можно использовать GitHub Actions workflow (`.github/workflows/deploy.yml`):
+
+1. Push в ветку main
+```bash
+git push
+```
+
+2. Включите GitHub Pages в настройках:
+   - Settings → Pages → Source: GitHub Actions
+
+3. Приложение будет автоматически деплоиться при каждом push
+
 ## Структура проекта
 
 ```
@@ -150,24 +184,24 @@ src-tauri/             # Tauri конфигурация
 
 ### Проксирование API
 
-В `vite.config.ts` настроено проксирование для решения проблем с CORS:
+В `vite.config.ts` настроено проксирование для решения проблем с CORS в dev режиме:
 
 ```typescript
 server: {
   proxy: {
     '/api': {
-      target: 'http://localhost:8000',
+      target: 'http://localhost:8080',
       changeOrigin: true,
     },
   },
 }
 ```
 
-Все запросы к `/api/*` будут проксироваться на бэкенд `http://localhost:8000`
+Все запросы к `/api/*` будут проксироваться на бэкенд `http://localhost:8080`
 
-### Mock данные
+### AJAX запросы с Axios
 
-API service layer (`src/services/api.ts`) автоматически использует mock данные при недоступности бэкенда. Это позволяет разрабатывать фронтенд независимо от бэкенда.
+API service layer (`src/services/api.ts`) использует axios для AJAX запросов с автоматическим fallback на mock данные при недоступности бэкенда. Axios предоставляет более удобный интерфейс по сравнению с fetch и автоматически обрабатывает JSON.
 
 ### Фильтрация
 

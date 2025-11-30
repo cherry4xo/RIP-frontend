@@ -1,4 +1,5 @@
 // src/services/api.ts
+import axios from 'axios';
 import type { VulnerabilityAssessment, VulnerabilityAssessmentType } from '../types/api';
 import { mockAssessments } from './mockData';
 import { API_BASE_URL } from '../config/api.config';
@@ -35,14 +36,8 @@ export async function getVulnerabilityAssessments(
     const queryString = queryParams.toString();
     const url = `${API_BASE_URL}/vulnerabilities${queryString ? `?${queryString}` : ''}`;
 
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data;
+    const response = await axios.get<VulnerabilityAssessment[]>(url);
+    return response.data;
   } catch (error) {
     console.error('Failed to fetch from API, using mock data:', error);
 
@@ -86,14 +81,8 @@ export async function getVulnerabilityAssessment(
   id: number
 ): Promise<VulnerabilityAssessment> {
   try {
-    const response = await fetch(`${API_BASE_URL}/vulnerabilities/${id}`);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data;
+    const response = await axios.get<VulnerabilityAssessment>(`${API_BASE_URL}/vulnerabilities/${id}`);
+    return response.data;
   } catch (error) {
     console.error('Failed to fetch from API, using mock data:', error);
 
