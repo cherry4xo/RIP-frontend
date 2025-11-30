@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 
 function App() {
-  const basename = import.meta.env.MODE === 'production' ? '/RIP-frontend' : '/';
+  const basename = import.meta.env.MODE === 'production' ? '/RIP-frontend/' : '/';
 
   return (
     <BrowserRouter basename={basename}>

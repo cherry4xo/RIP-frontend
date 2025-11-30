@@ -22,9 +22,10 @@ React SPA приложение для работы с API оценки уязв�
 #### 3. PWA (Progressive Web App)
 - Настроен vite-plugin-pwa
 - Web App Manifest
-- Service Worker с кэшированием
+- Service Worker с кешированием
 - Офлайн режим
 - Установка на домашний экран
+- **ВАЖНО**: Необходимо добавить файлы `public/logo192.png` и `public/logo512.png` для полноценной работы PWA
 
 #### 4. Tauri Desktop приложение
 - Инициализирован Tauri проект
