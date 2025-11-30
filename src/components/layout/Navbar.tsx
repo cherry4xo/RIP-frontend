@@ -4,13 +4,14 @@ import { Navbar as BSNavbar, Nav, Container } from 'react-bootstrap';
 
 export function Navbar() {
   const location = useLocation();
+  const baseUrl = import.meta.env.BASE_URL;
 
   return (
     <BSNavbar className="py-4">
       <Container fluid className="main-container">
         <BSNavbar.Brand as={Link} to="/" className="d-flex align-items-center gap-3">
           <img
-            src="/logo.svg"
+            src={`${baseUrl}logo.svg`}
             alt="Positive Technologies"
             height="28"
           />
@@ -34,9 +35,9 @@ export function Navbar() {
           </Nav.Link>
         </Nav>
 
-        <Link to="/" className="ms-3">
+        <Link to="/" className="d-flex align-items-center">
           <img
-            src="/home.svg"
+            src={`${baseUrl}home.svg`}
             alt="Home"
             height="24"
             style={{ opacity: 0.8, transition: 'opacity 0.3s' }}

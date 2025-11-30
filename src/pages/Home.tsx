@@ -1,6 +1,5 @@
 // src/pages/Home.tsx
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import './Home.css';
 
 export function Home() {
@@ -55,14 +54,6 @@ export function Home() {
                   </div>
                 </Col>
               </Row>
-            </div>
-
-            <div className="home-cta">
-              <Link to="/services">
-                <Button className="btn-primary btn-lg">
-                  Посмотреть услуги
-                </Button>
-              </Link>
             </div>
           </Col>
         </Row>

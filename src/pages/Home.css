@@ -64,12 +64,91 @@
   margin-top: 3rem;
 }
 
+/* Адаптивность для планшетов */
+@media (max-width: 992px) {
+  .home-page {
+    padding: 3rem 0;
+  }
+
+  .home-title {
+    font-size: 3rem;
+  }
+
+  .home-description {
+    font-size: 1.15rem;
+    margin-bottom: 3rem;
+  }
+
+  .feature-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.35rem;
+  }
+}
+
+/* Адаптивность для мобильных */
 @media (max-width: 768px) {
+  .home-page {
+    padding: 2rem 0;
+  }
+
   .home-title {
     font-size: 2.5rem;
   }
 
   .home-description {
     font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .home-features {
+    margin-bottom: 2.5rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .home-cta {
+    margin-top: 2rem;
+  }
+}
+
+/* Адаптивность для маленьких мобильных */
+@media (max-width: 576px) {
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .home-description {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-card {
+    padding: 1.25rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.15rem;
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
   }
 }

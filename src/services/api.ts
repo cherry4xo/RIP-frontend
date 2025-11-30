@@ -1,6 +1,7 @@
 // src/services/api.ts
 import type { VulnerabilityAssessment, VulnerabilityAssessmentType } from '../types/api';
 import { mockAssessments } from './mockData';
+import { API_BASE_URL } from '../config/api.config';
 
 interface GetAssessmentsParams {
   title?: string;
@@ -32,7 +33,7 @@ export async function getVulnerabilityAssessments(
     }
 
     const queryString = queryParams.toString();
-    const url = `/api/vulnerabilities${queryString ? `?${queryString}` : ''}`;
+    const url = `${API_BASE_URL}/vulnerabilities${queryString ? `?${queryString}` : ''}`;
 
     const response = await fetch(url);
 
@@ -85,7 +86,7 @@ export async function getVulnerabilityAssessment(
   id: number
 ): Promise<VulnerabilityAssessment> {
   try {
-    const response = await fetch(`/api/vulnerabilities/${id}`);
+    const response = await fetch(`${API_BASE_URL}/vulnerabilities/${id}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

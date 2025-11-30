@@ -8,8 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/global.css';
 
 function App() {
+  const basename = import.meta.env.MODE === 'production' ? '/frontend' : '/';
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Layout showBreadcrumbs={false} />}>
           <Route index element={<Home />} />
