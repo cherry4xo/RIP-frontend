@@ -5,42 +5,38 @@ import { VitePWA } from 'vite-plugin-pwa'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const isTauri = process.env.TAURI_ENV_PLATFORM !== undefined || process.env.TAURI_BUILD === 'true'
+  const base = isTauri ? './' : (mode === 'production' ? '/RIP-frontend/' : '/')
 
   return {
-    base: isTauri ? './' : (mode === 'production' ? '/RIP-frontend/' : '/'),
+    base,
     plugins: [
       react(),
       VitePWA({
         disable: isTauri, // Отключаем PWA для Tauri
-      registerType: 'autoUpdate',
-      includeAssets: ['logo.svg', 'home.svg'],
-      manifest: {
-        name: 'Positive Tech - Оценка уязвимостей',
-        short_name: 'Positive Tech',
-        description: 'Профессиональная оценка уязвимостей IT-инфраструктуры',
-        theme_color: '#e4002b',
-        background_color: '#0a0a0a',
-        display: 'standalone',
-        start_url: '/RIP-frontend/',
-        icons: [
-          {
-            src: '/logo.svg',
-            sizes: '512x512',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
-          },
-          {
-            src: '/logo192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: '/logo512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
-      },
+        registerType: 'autoUpdate',
+        includeAssets: ['logo.svg', 'home.svg'],
+        devOptions: {
+          enabled: true,
+          type: 'module'
+        },
+        manifest: {
+          name: 'Positive Tech - Оценка уязвимостей',
+          short_name: 'Positive Tech',
+          description: 'Профессиональная оценка уязвимостей IT-инфраструктуры',
+          theme_color: '#e4002b',
+          background_color: '#0a0a0a',
+          display: 'standalone',
+          start_url: base,
+          scope: base,
+          icons: [
+            {
+              src: 'logo.svg',
+              sizes: 'any',
+              type: 'image/svg+xml',
+              purpose: 'any'
+            }
+          ]
+        },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg}'],
         runtimeCaching: [
