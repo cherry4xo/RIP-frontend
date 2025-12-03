@@ -53,14 +53,25 @@ function generateBreadcrumbsFromPath(pathname: string): BreadcrumbItem[] {
     { label: 'Главная', path: '/' }
   ];
 
+  // Маппинг путей на читаемые названия
+  const pathLabels: Record<string, string> = {
+    'services': 'Услуги',
+    'reports': 'Заявки',
+    'my-reports': 'Мои заявки',
+    'cart': 'Корзина',
+    'profile': 'Профиль',
+    'login': 'Вход',
+    'register': 'Регистрация',
+  };
+
   let currentPath = '';
   paths.forEach((path) => {
     currentPath = currentPath ? `${currentPath}/${path}` : `/${path}`;
 
     // Определяем label в зависимости от пути
     let label: string;
-    if (path === 'services') {
-      label = 'Услуги';
+    if (pathLabels[path]) {
+      label = pathLabels[path];
     } else if (/^\d+$/.test(path)) {
       label = 'Детали';
     } else {

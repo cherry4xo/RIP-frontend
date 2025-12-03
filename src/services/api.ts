@@ -1,6 +1,13 @@
 // src/services/api.ts
 import axios from 'axios';
-import type { VulnerabilityAssessment, VulnerabilityAssessmentType } from '../types/api';
+import type {
+  VulnerabilityAssessment,
+  VulnerabilityAssessmentType,
+  AssessmentReportSummary,
+  AssessmentReportDetails,
+  ReportStatus,
+  DraftReportStatusInfo
+} from '../types/api';
 import { mockAssessments } from './mockData';
 import { API_BASE_URL } from '../config/api.config';
 
@@ -9,6 +16,12 @@ interface GetAssessmentsParams {
   assessment_type?: VulnerabilityAssessmentType;
   min_price?: number;
   max_price?: number;
+}
+
+interface GetReportsParams {
+  status?: ReportStatus;
+  date_from?: string;
+  date_to?: string;
 }
 
 /**
@@ -93,4 +106,123 @@ export async function getVulnerabilityAssessment(
     }
     return item;
   }
+}
+
+/**
+ * Получение списка отчетов с фильтрацией
+ */
+export async function getReports(
+  token: string,
+  params: GetReportsParams = {}
+): Promise<AssessmentReportSummary[]> {
+  const queryParams = new URLSearchParams();
+  if (params.status) {
+    queryParams.append('status', params.status);
+  }
+  if (params.date_from) {
+    queryParams.append('date_from', params.date_from);
+  }
+  if (params.date_to) {
+    queryParams.append('date_to', params.date_to);
+  }
+
+  const queryString = queryParams.toString();
+  const url = `${API_BASE_URL}/reports${queryString ? `?${queryString}` : ''}`;
+
+  const response = await axios.get<AssessmentReportSummary[]>(url, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  return response.data;
+}
+
+/**
+ * Получение детальной информации об отчете
+ */
+export async function getReportDetails(
+  token: string,
+  reportId: number
+): Promise<AssessmentReportDetails> {
+  const response = await axios.get<AssessmentReportDetails>(
+    `${API_BASE_URL}/reports/${reportId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  return response.data;
+}
+
+/**
+ * Завершение отчета (модератором)
+ */
+export async function completeReport(
+  token: string,
+  reportId: number
+): Promise<AssessmentReportDetails> {
+  const response = await axios.put<AssessmentReportDetails>(
+    `${API_BASE_URL}/reports/${reportId}/complete`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  return response.data;
+}
+
+/**
+ * Отклонение отчета (модератором)
+ */
+export async function cancelReport(
+  token: string,
+  reportId: number
+): Promise<AssessmentReportDetails> {
+  const response = await axios.put<AssessmentReportDetails>(
+    `${API_BASE_URL}/reports/${reportId}/cancel`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  return response.data;
+}
+
+/**
+ * Получение статуса черновика отчета и количества услуг в корзине
+ */
+export async function getDraftReportStatus(
+  token: string
+): Promise<DraftReportStatusInfo> {
+  const response = await axios.get<DraftReportStatusInfo>(
+    `${API_BASE_URL}/report/draft/status`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  return response.data;
+}
+
+/**
+ * Удаление черновика отчета
+ */
+export async function deleteDraftReport(
+  token: string,
+  reportId: number
+): Promise<void> {
+  await axios.delete(
+    `${API_BASE_URL}/reports/${reportId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
 }

@@ -1,0 +1,121 @@
+/* src/pages/Cart.css */
+
+.cart-container {
+  max-width: 1200px;
+}
+
+.cart-container textarea {
+  resize: vertical;
+}
+
+.cart-details-card {
+  position: sticky;
+  top: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.detail-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.detail-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.detail-value.price {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.btn-outline-danger {
+  background-color: transparent !important;
+  border: 2px solid var(--primary-red) !important;
+  color: var(--primary-red) !important;
+}
+
+.btn-outline-danger:hover,
+.btn-outline-danger:focus,
+.btn-outline-danger:active {
+  background-color: var(--primary-red) !important;
+  border-color: var(--primary-red) !important;
+  color: var(--text-primary) !important;
+}
+
+.services-list {
+  margin-bottom: 0;
+}
+
+.service-card {
+  border: 2px solid var(--border-color) !important;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  border-color: var(--primary-red) !important;
+  box-shadow: 0 4px 12px rgba(228, 0, 43, 0.2);
+}
+
+.service-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(228, 0, 43, 0.05) 0%, rgba(0, 0, 0, 0.2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-image {
+  transform: scale(1.05);
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.service-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-red);
+  padding: 0.5rem 1rem;
+  background-color: rgba(228, 0, 43, 0.1);
+  border-left: 3px solid var(--primary-red);
+  display: inline-block;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .service-image-container {
+    height: 150px;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-title {
+    font-size: 1.25rem;
+  }
+
+  .service-price {
+    font-size: 1.1rem;
+  }
+}
