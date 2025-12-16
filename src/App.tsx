@@ -20,18 +20,14 @@ function App() {
   const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.auth);
 
-  // Загружаем пользователя при старте приложения, если есть токен
   useEffect(() => {
     if (token) {
       dispatch(loadUser());
     }
   }, [dispatch, token]);
 
-  // Проверяем, запущено ли приложение в Tauri
-  // @ts-ignore
   const isTauri = typeof window !== 'undefined' && window.__TAURI__;
 
-  // Для Tauri всегда используем '/', для веб - '/RIP-frontend/' в production
   const basename = import.meta.env.MODE === 'production' && !isTauri ? '/RIP-frontend/' : '/';
 
   console.log('App initialized:', {
